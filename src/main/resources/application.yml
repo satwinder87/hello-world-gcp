@@ -1,0 +1,4 @@
+application:
+  custom:
+    message: Welcome Onboard !
+  api-key: ${sm://hello-api-key}
