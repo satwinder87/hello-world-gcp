@@ -19,7 +19,7 @@ spec:
     spec:
       serviceAccount: readonly-sa
       containers:
-        - image: gcr.io/my-test-prj-01/hello-world-springboot-gcp:v3
+        - image: gcr.io/my-test-prj-01/hello-world-springboot-gcp:v4
           name: hello-world
           resources: {}
           ports:
