@@ -42,7 +42,7 @@ spec:
   selector:
     app: hello-world
   ports:
-    - port: 8000 #My wish
+    - port: 80 #My wish
       targetPort: 8080
 
 ---
@@ -55,7 +55,7 @@ spec:
     service:
       name: hello-service
       port:
-        number: 8000
+        number: 80
   rules:
     - http:
         paths:
@@ -65,4 +65,4 @@ spec:
               service:
                 name: hello-service
                 port:
-                  number: 8000
+                  number: 80
