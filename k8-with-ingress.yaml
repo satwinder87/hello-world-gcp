@@ -1,9 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
-  labels:
-    app: hello-world
   name: hello-world
 spec:
   replicas: 2
@@ -13,7 +10,6 @@ spec:
   strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: hello-world
     spec:
@@ -21,28 +17,34 @@ spec:
       containers:
         - image: gcr.io/my-test-prj-01/hello-world-springboot-gcp:v4
           name: hello-world
-          resources: {}
           ports:
             - containerPort: 8080
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8080
-              scheme: HTTP
-            initialDelaySeconds: 320
-            failureThreshold: 20
-            timeoutSeconds: 20
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: my-backendconfig
+spec:
+  timeoutSec: 40
+  connectionDraining:
+    drainingTimeoutSec: 60
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: hello-service
+  labels:
+    app: hello-world
+    annotations:
+      cloud.google.com/backend-config: '{"ports": {"80":"my-backendconfig"}}'
+      cloud.google.com/neg: '{"ingress": true}'
 spec:
   type: ClusterIP
   selector:
     app: hello-world
   ports:
-    - port: 80 #My wish
+    - port: 80
+      protocol: TCP
       targetPort: 8080
 
 ---
@@ -51,11 +53,6 @@ kind: Ingress
 metadata:
   name: awesome-ingress
 spec:
-  defaultBackend:
-    service:
-      name: hello-service
-      port:
-        number: 80
   rules:
     - http:
         paths:
