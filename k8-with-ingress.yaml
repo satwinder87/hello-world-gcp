@@ -17,8 +17,9 @@ spec:
       labels:
         app: hello-world
     spec:
+      serviceAccount: readonly-sa
       containers:
-        - image: gcr.io/my-test-prj-01/hello-world-springboot-gcp:v2
+        - image: gcr.io/my-test-prj-01/hello-world-springboot-gcp:v3
           name: hello-world
           resources: {}
           ports:
@@ -52,8 +53,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /hello-world
-            pathType: ImplementationSpecific
+          - path: /*
             backend:
               service:
                 name: hello-service
