@@ -24,7 +24,7 @@ spec:
               path: /actuator/health
               port: 8080
               scheme: HTTP
-            initialDelaySeconds: 320
+            initialDelaySeconds: 100
             failureThreshold: 20
             timeoutSeconds: 20
           readinessProbe:
@@ -36,22 +36,12 @@ spec:
             failureThreshold: 12
             timeoutSeconds: 9
 ---
-apiVersion: cloud.google.com/v1
-kind: BackendConfig
-metadata:
-  name: hello-world
-spec:
-  healthCheck:
-    requestPath: /
----
 apiVersion: v1
 kind: Service
 metadata:
   name: hello-service
   labels:
     app: hello-world
-  annotations:
-    cloud.google.com/backend-config: '{"default": "hello-world"}'
 spec:
   type: ClusterIP
   selector:
