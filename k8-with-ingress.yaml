@@ -24,6 +24,22 @@ spec:
           resources: {}
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /api/v1/helloWorld
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 320
+            failureThreshold: 20
+            timeoutSeconds: 20
+            readinessProbe:
+              httpGet:
+                path: /api/v1/helloWorld
+                port: 8080
+                scheme: HTTP
+              initialDelaySeconds: 120
+              failureThreshold: 12
+              timeoutSeconds: 9
       restartPolicy: Always
 
 ---
