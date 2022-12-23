@@ -23,11 +23,10 @@ spec:
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
-  name: my-backendconfig
+  name: hello-world
 spec:
-  timeoutSec: 40
-  connectionDraining:
-    drainingTimeoutSec: 60
+  healthCheck:
+    requestPath: /
 ---
 apiVersion: v1
 kind: Service
@@ -36,7 +35,7 @@ metadata:
   labels:
     app: hello-world
     annotations:
-      cloud.google.com/backend-config: '{"ports": {"80":"my-backendconfig"}}'
+      cloud.google.com/backend-config: '{"default": "hello-world"}'
       cloud.google.com/neg: '{"ingress": true}'
 spec:
   type: ClusterIP
