@@ -36,7 +36,6 @@ metadata:
     app: hello-world
     annotations:
       cloud.google.com/backend-config: '{"default": "hello-world"}'
-      cloud.google.com/neg: '{"ingress": true}'
 spec:
   type: ClusterIP
   selector:
