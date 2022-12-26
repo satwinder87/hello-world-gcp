@@ -84,13 +84,8 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: "helloworld-ingress-ip"
     networking.gke.io/managed-certificates: "helloworld-certificate"
 spec:
-  rules:
-    - http:
-        paths:
-          - path: /*
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: hello-service
-                port:
-                  number: 80
+  defaultBackend:
+    service:
+      name: hello-service
+      port:
+        number: 80
