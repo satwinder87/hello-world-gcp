@@ -45,6 +45,8 @@ spec:
   iap:
     enabled: true
     oauthclientCredentials:
+      # create secret connecting the oauth clientId and client secret
+      # https://cloud.google.com/iap/docs/enabling-kubernetes-howto#oauth-configure
       secretName: my-secret
 ---
 apiVersion: v1
