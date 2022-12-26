@@ -1,0 +1,8 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: helloworld-certificate
+spec:
+  domains:
+    # Replace the value with your domain name
+    - 35.186.240.199.nip.io
