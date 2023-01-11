@@ -15,7 +15,7 @@ spec:
     spec:
       serviceAccount: readonly-sa
       containers:
-        - image: gcr.io/my-test-prj-01/hello-world-springboot-gcp:v6
+        - image: gcr.io/my-test-prj-01/hello-world-springboot-gcp:v7
           name: hello-world
           ports:
             - containerPort: 8080
