@@ -13,3 +13,5 @@ https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#gcloud_
 Static IP (35.186.240.199)
 https://spring-gcp.saturnism.me/deployment/kubernetes/load-balancing/external-load-balancing
 
+kubectl describe managedcertificate helloworld-certificate
+

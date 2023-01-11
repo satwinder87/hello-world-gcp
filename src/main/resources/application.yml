@@ -10,4 +10,4 @@ spring:
     gcp:
       security:
         iap:
-          audience: /projects/299840590472/global/backendServices/3885997377920153189
+          audience: /projects/299840590472/global/backendServices/4797799590329024261
