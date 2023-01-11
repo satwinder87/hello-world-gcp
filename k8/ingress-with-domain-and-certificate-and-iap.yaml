@@ -43,6 +43,7 @@ metadata:
   name: awesome-ingress
   annotations:
     # create helloworld-ingress-ip first by using the command: gcloud compute addresses create helloworld-ingress-ip --global
+    # check created IP by using the command: gcloud compute addresses describe helloworld-ingress-ip --global
     kubernetes.io/ingress.global-static-ip-name: "helloworld-ingress-ip"
     networking.gke.io/managed-certificates: "helloworld-certificate"
 spec:
