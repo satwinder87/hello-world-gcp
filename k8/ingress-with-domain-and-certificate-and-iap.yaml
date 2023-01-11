@@ -1,0 +1,53 @@
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: config-default
+  namespace: default
+spec:
+  iap:
+    enabled: true
+    oauthclientCredentials:
+      # create secret connecting the oauth clientId and client secret
+      # https://cloud.google.com/iap/docs/enabling-kubernetes-howto#oauth-configure
+      secretName: my-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-service
+  labels:
+    app: hello-world
+  annotations:
+    beta.cloud.google.com/backend-config: '{"default": "config-default"}'
+spec:
+  type: ClusterIP
+  selector:
+    app: hello-world
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: helloworld-certificate
+spec:
+  domains:
+    # Replace the value with your domain name
+    - 35.186.240.199.nip.io
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: awesome-ingress
+  annotations:
+    # create helloworld-ingress-ip first by using the command: gcloud compute addresses create helloworld-ingress-ip --global
+    kubernetes.io/ingress.global-static-ip-name: "helloworld-ingress-ip"
+    networking.gke.io/managed-certificates: "helloworld-certificate"
+spec:
+  defaultBackend:
+    service:
+      name: hello-service
+      port:
+        number: 80

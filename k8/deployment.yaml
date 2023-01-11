@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      serviceAccount: readonly-sa
+      containers:
+        - image: gcr.io/my-test-prj-01/hello-world-springboot-gcp:v5
+          name: hello-world
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 20
+            timeoutSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 12
+            timeoutSeconds: 9

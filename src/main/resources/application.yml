@@ -2,3 +2,12 @@ application:
   custom:
     message: Welcome Onboard !
   api-key: ${sm://hello-api-key}
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    gcp:
+      security:
+        iap:
+          audience: /projects/299840590472/global/backendServices/3885997377920153189
